@@ -22,6 +22,7 @@ jobs:
       - name: Extrair projeto Editron
         run: |
           unzip -o Editron_Project_Com_Icon.zip -d .
+          python3 scripts/add_composition_ratios.py
           test -f settings.gradle.kts
           test -f app/build.gradle.kts
           test -f app/src/main/AndroidManifest.xml
