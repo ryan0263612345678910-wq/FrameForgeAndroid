@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'Editron_Project_Com_Icon.zip'
-      - '.github/workflows/build-app.yml'
+      - '.github/workflows/build-apk.yml'
 
 permissions:
   contents: read
