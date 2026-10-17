@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'FrameForgeAndroid-starter.zip'
+      - 'FrameForgeAndroid-redesigned.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -19,19 +20,18 @@ jobs:
       - name: Baixar projeto
         uses: actions/checkout@v4
 
-      - name: Extrair projeto
-        run: unzip -o FrameForgeAndroid-starter.zip -d .
+      - name: Extrair projeto redesenhado
+        run: unzip -o FrameForgeAndroid-redesigned.zip -d .
 
       - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          packages: ''
-      
+
       - name: Instalar ferramentas Android
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
