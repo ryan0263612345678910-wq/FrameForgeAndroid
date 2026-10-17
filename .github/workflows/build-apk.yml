@@ -62,7 +62,16 @@ jobs:
 
       - name: Compilar APK
         run: gradle assembleDebug
-        
+
+      - name: Localizar APK gerado
+        if: always()
+        run: |
+          echo "Diretório atual:"
+          pwd
+          echo "Arquivos APK encontrados:"
+          find . -type f -name "*.apk" -print
+          echo "Arquivos Gradle:"
+          find . -maxdepth 4 \( -name "settings.gradle" -o -name "settings.gradle.kts" \) -print        
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
