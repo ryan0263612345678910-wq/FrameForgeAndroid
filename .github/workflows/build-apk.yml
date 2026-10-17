@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'FrameForgeAndroid-redesign.zip'
-      - 'FrameForgeAndroid-redesigned.zip'
+      - 'FrameForgeAndroid-redesign.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Extrair projeto redesenhado
-        run: unzip -o FrameForgeAndroid-redesigned.zip -d .
+        run: unzip -o FrameForgeAndroid-redesign.zip -d .
 
       - name: Configurar Java
         uses: actions/setup-java@v4
