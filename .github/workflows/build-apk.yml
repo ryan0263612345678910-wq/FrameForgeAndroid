@@ -62,6 +62,13 @@ jobs:
 
       - name: Compilar APK
         run: gradle assembleDebug
+        
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: FrameForge-APK
+          path: FrameForgeAndroid/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
