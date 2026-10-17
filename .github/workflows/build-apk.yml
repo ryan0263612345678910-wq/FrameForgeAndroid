@@ -41,8 +41,15 @@ jobs:
           sdkmanager --update
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Instalar ferramentas Android
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      
+      - name: Diagnosticar Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          java -version
+          sdkmanager --version
+          sdkmanager --list --verbose
+
 
       - name: Configurar Gradle
         uses: gradle/gradle-build-action@v3
