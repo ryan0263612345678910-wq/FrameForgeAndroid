@@ -32,6 +32,10 @@ jobs:
       
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: ''
+          cmdline-tools-version: 'latest'
+
 
       - name: Aceitar licenças Android
         run: yes | sdkmanager --licenses || true
