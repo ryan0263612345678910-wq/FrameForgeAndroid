@@ -1,13 +1,12 @@
 
-name: Build FrameForge APK
+name: Build Editron APK
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'FrameForgeAndroid-redesign.zip'
-      - 'FrameForgeAndroid-redesign.zip'
-      - '.github/workflows/build-apk.yml'
+      - 'Editron_Project_Com_Icon.zip'
+      - '.github/workflows/build-app.yml'
 
 permissions:
   contents: read
@@ -17,11 +16,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar projeto
+      - name: Baixar repositório
         uses: actions/checkout@v4
 
-      - name: Extrair projeto redesenhado
-        run: unzip -o FrameForgeAndroid-redesign.zip -d .
+      - name: Extrair projeto Editron
+        run: |
+          unzip -o Editron_Project_Com_Icon.zip -d .
+          test -f settings.gradle.kts
+          test -f app/build.gradle.kts
+          test -f app/src/main/AndroidManifest.xml
 
       - name: Configurar Java
         uses: actions/setup-java@v4
@@ -29,60 +32,25 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          packages: ''
-          cmdline-tools-version: 'latest'
-
-
-      - name: Aceitar licenças Android
-        run: yes | sdkmanager --licenses || true
 
       - name: Instalar ferramentas Android
         run: |
-          sdkmanager --update
+          sdkmanager --licenses
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      
-      - name: Diagnosticar Android SDK
-        run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          java -version
-          sdkmanager --version
-          sdkmanager --list --verbose
-
-
       - name: Configurar Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
       - name: Compilar APK
         run: gradle assembleDebug
 
-      - name: Localizar APK gerado
-        if: always()
-        run: |
-          echo "Diretório atual:"
-          pwd
-          echo "Arquivos APK encontrados:"
-          find . -type f -name "*.apk" -print
-          echo "Arquivos Gradle:"
-          find . -maxdepth 4 \( -name "settings.gradle" -o -name "settings.gradle.kts" \) -print 
-          
-      - name: Upload APK
+      - name: Enviar APK
         uses: actions/upload-artifact@v4
         with:
-          name: FrameForge-APK
+          name: Editron-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-
-      - name: Disponibilizar APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: FrameForge-APK
-          path: FrameForgeAndroid/app/build/outputs/apk/debug/app-debug.apk
-          
