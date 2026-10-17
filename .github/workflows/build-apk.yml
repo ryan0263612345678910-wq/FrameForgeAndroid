@@ -73,7 +73,7 @@ jobs:
           echo "Arquivos Gradle:"
           find . -maxdepth 4 \( -name "settings.gradle" -o -name "settings.gradle.kts" \) -print 
           
-      - name: Upload APK
+       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: FrameForge-APK
